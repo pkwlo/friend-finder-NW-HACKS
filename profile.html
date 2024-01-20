@@ -51,6 +51,43 @@
     <!-- the body of your page goes here -->
     <!-- stuff -->
 
+    <main>
+
+        <div class="account">
+            <h2>Account</h2>
+            <form>
+                <fieldset id="personalInfoFields">
+                    <!-- profile picture -->
+                    <div class="profile-container">
+                        <img id="my-profile-pic" src="images/default_profile.png" width="150" height="150" />
+                    </div>
+
+                    <!-- profile information -->
+                    <div class="input-field">
+                        <label>Name</label>
+                        <input type="text" id="user-name" class="form-control" placeholder="Enter your name" required>
+                    </div>
+
+                    <div class="input-field">
+                        <label>Country</label>
+                        <input type="text" id="user-country" class="form-control" placeholder="Enter your country"
+                            required>
+                    </div>
+
+                    <div class="input-field">
+                        <label>City</label>
+                        <input type="text" id="user-city" class="form-control" placeholder="Enter your country"
+                            required>
+                    </div>
+
+                </fieldset>
+            </form>
+        </div>
+
+
+
+    </main>
+
     <!-- our own footer goes here-->
     <nav id="footer-here"></nav>
 
@@ -60,6 +97,7 @@
     <script src="./scripts/firebase-config.js"></script>
     <script src="./scripts/skeleton.js"></script>
     <script src="./scripts/script.js"></script>
+    <script src="./scripts/authentication.js"></script>
 
 </body>
 

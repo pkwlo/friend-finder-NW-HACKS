@@ -1,3 +1,8 @@
+//Import SDKs
+import { initializeApp } from "firebase/app";
+import { getAuth, GoogleAuthProvider } from "firebase/auth";
+
+
 // Your web app's Firebase configuration
 const firebaseConfig = {
     apiKey: "AIzaSyDqN_lb9-GIwNi3BVONDinLmF3B_kvou8k",
@@ -16,3 +21,4 @@ const db = firebase.firestore();
 
 // Initialize Cloud Storage and get a reference to the service
 const storage = firebase.storage();
+const provider = new GoogleAuthProvider();

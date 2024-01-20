@@ -49,7 +49,44 @@
     <nav id="navbar-here"></nav>
 
     <!-- the body of your page goes here -->
-    <!-- stuff -->
+    <div class="container">
+        <h1>All chats</h1>
+        <!-- Here is the container for cards  -->
+        <div class="container">
+            <div id="chats-go-here" class="row row-cols-auto">
+            </div>
+        </div>
+    </div>
+    
+    <!-- Templates for general use, not displayed -->
+    <template id="chatCardTemplate">
+        <div class="card">
+            <div class="card-body">
+                <div class="title">
+                    <h5 class="card-title"></h5>
+                    <div class="icons">
+                        <span class="card-accessibility"></span><br>
+                        <button id="favourite-button" class="material-symbols-outlined fav-button">favorite</button>
+                    </div>
+                </div>
+                <div class="details">
+                    <div>
+                        <span class="card-location"></span><br>
+                        <span class="card-distance"></span><br>
+                        <!-- <span class="card-accessibility"></span><br> -->
+                    </div>
+                    <div class="links">
+                        <a class="btn card-href"><span class="material-icons">
+                                more_horiz
+                            </span></a>
+                        <a class="btn card-href" href="main.html"><span class="material-icons direction">
+                                directions
+                            </span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
 
     <!-- our own footer goes here-->
     <nav id="footer-here"></nav>

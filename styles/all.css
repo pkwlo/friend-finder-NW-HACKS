@@ -3,6 +3,10 @@
     margin: 0px;
 }
 
+.navbar-brand img {
+    width: 20%;
+}
+
 body { 
     padding-top: 65px; 
     padding-bottom: 65px;

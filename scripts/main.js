@@ -155,5 +155,5 @@ async function populateUserByScore(current_user_id) {
 
 //Send a friend request and set friend status to pending in firebase
 function addFriend(current_user_id, friendReq) {
-    
+    console.log("adding friend");   
 }

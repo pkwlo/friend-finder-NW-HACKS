@@ -2,14 +2,12 @@
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyDqN_lb9-GIwNi3BVONDinLmF3B_kvou8k",
-    authDomain: "friend-finder-21fe1.firebaseapp.com",
-    databaseURL: "https://friend-finder-21fe1-default-rtdb.firebaseio.com",
-    projectId: "friend-finder-21fe1",
-    storageBucket: "friend-finder-21fe1.appspot.com",
-    messagingSenderId: "98629272650",
-    appId: "1:98629272650:web:499eb588cfc8ccb5dfd2b3",
-    measurementId: "G-QC8Z58N49L"
+    apiKey: "AIzaSyCY_iu-VCVWVewfadVQ2_qtMz_lcSLPHWQ",
+    authDomain: "friendfinder2-5b089.firebaseapp.com",
+    projectId: "friendfinder2-5b089",
+    storageBucket: "friendfinder2-5b089.appspot.com",
+    messagingSenderId: "420414706406",
+    appId: "1:420414706406:web:a08b0bef66373b68f12127"
 };
 
 // Initialize Firebase and Firestore

@@ -56,3 +56,14 @@ function sendMessage() {
         username: username
     })
 }
+
+var observer = new MutationObserver(function(mutations) {
+    mutations.forEach(function(mutation) {
+        if (mutation.addedNodes.length > 0) {
+            var messages = document.getElementById("chats-go-here");
+            messages.scrollTop = messages.scrollHeight;
+        }
+    });
+});
+
+observer.observe(document.getElementById("chats-go-here"), { childList: true });

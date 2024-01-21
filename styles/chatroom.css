@@ -1,3 +1,8 @@
+#chats-go-here {
+    max-height: 600px; 
+    overflow-y: auto; 
+}
+
 #chats-go-here .message_card{
     margin: 10px;
     padding: 10px;

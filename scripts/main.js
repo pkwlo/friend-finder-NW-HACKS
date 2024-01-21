@@ -1,6 +1,6 @@
 $(document).ready(function () {
     checkQuestionnaire();
-    populateUserByScore();
+    
     
 });
 
@@ -72,8 +72,37 @@ function matchUsers(user_tags, user_interests) {
                 }
             })
         })
+    populateUserByScore(current_user_id);
 }
 
-function populateUserByScore() {
-    
+//Sort users except yourself by score
+function populateUserByScore(current_user_id) {
+    let cardTemplate = document.getElementById("matchTemplate");
+    let friendsList = [];
+
+    db.collection("users").doc(current_user_id).collection("other_users").get().then(
+        allUsers => {
+            allUsers.forEach(user => {
+                let user_id = user.data().name;
+                let eachuser = user_if in db.collection("questionnaire");
+                friendsList.push(user.data());
+            })
+        }
+    ).then(() => {
+        friendsList.sort(function(a, b) {
+            return b.score - a.score;
+        })
+    }).then(() => {
+        friendsList.limit(10).forEach(user => {
+            let cardClone = cardTemplate.content.cloneNode(true);
+            cardClone.querySelector(".card-title").textContent = eachuser.name;
+            cardClone.querySelector(".card-location").textContent = eachuser.location;
+            cardClone.querySelector(".card-hangout").textContent = user.score;
+            cardClone.querySelector(".card-chat").textContent = user.score;
+            cardClone.querySelector(".card-interests").textContent = user.score;
+            cardClone.querySelector(".description").textContent = user.score;
+            
+        })
+    })
+
 }

@@ -49,7 +49,43 @@
     <nav id="navbar-here"></nav>
 
     <!-- the body of your page goes here -->
-    <!-- stuff -->
+    <div class="container">
+        <h1>Nearby Matches</h1>
+        <!-- Here is the container for cards  -->
+        <div class="container">
+            <div id="matches-go-here" class="row row-cols-auto">
+            </div>
+        </div>
+    </div>
+
+    <!-- Templates for general use, not displayed -->
+    <template id="matchTemplate">
+        <div class="card">
+            <div class="card-body">
+                <div class="title">
+                    <h5 class="card-title"></h5>
+                    <div class="icons">
+                        <button id="add-friend" class="material-symbols-outlined add-button">favorite</button>
+                    </div>
+                </div>
+                <div class="details">
+                    <div>
+                        <span class="card-location"></span><br>
+                        <span class="card-hangout"></span>
+                        <span class="card-chat"></span><br>
+                        <span class="card-interests"></span><br>
+                        <span class="description"></span>
+                    </div>
+                    <div class="links">
+                        <a class="btn card-href"><span class="material-icons">
+                                more_horiz
+                            </span></a>
+                    </div> 
+                </div>
+            </div>
+        </div>
+    </template>
+    
 
     <!-- our own footer goes here-->
     <nav id="footer-here"></nav>

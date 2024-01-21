@@ -1,56 +1,46 @@
 console.log('db_product_search.js loaded');
 sort_method = undefined
 
-function displayCardsDynamically(collection) {
-    firebase.auth().onAuthStateChanged(user => {
+async function displayCardsDynamically(collection) {
+    firebase.auth().onAuthStateChanged(async user => {
         if (user) {
             let cardTemplate = document.getElementById("chat_card_template");
             var chats = document.getElementById('chat-go-here');
             chats.innerHTML = ''; // Clear once before adding new content
 
-            db.collection('chatrooms').get().then(allProducts => {
-                allProducts.forEach(doc => {
+            await db.collection('chatrooms').get().then(async allProducts => {
+                allProducts.forEach(async doc => {
                     if (doc.data().users.includes(user.uid)) {
                         console.log(user.uid)
                         nameID = user.uid
 
-                        doc.data().users.forEach(user => {
+                        doc.data().users.forEach(async user => {
                             if (nameID != user) {
 
                                 let showName;
                                 let newcard = cardTemplate.content.cloneNode(true);
                                 console.log('test     ' + user)
 
-                                // db.collection('users').doc(user).get().then(doc => {
-                                //     if (doc.exists) {
-                                //         let userName = doc.data().name; // Access the name field
-                                //         console.log(userName); // This will log "bob" to the console
-                                //     } else {
-                                //         console.log("Document does not exist");
-                                //     }
-                                // }).catch(error => {
-                                //     console.error("Error getting document:", error);
-                                // });
-                                // db.collection('users').doc(user).get().then(doc => {
-                                //     console.log("User name:", doc.data().name);
-                                //     showName = doc.data().name;
-
-                                // })
-                                // newcard.querySelector('.card-title').innerHTML = user;
-                                db.collection('users').where(firebase.firestore.FieldPath.documentId(), '==', user).get().then(
-                                    results => {
+                                await db.collection('users').where(firebase.firestore.FieldPath.documentId(), '==', user).get().then(
+                                    async results => {
                                         results.forEach(doc => {
-                                            console.log(doc.data().name)
+                                            
                                             showName = doc.data().name;
+                                            console.log(showName)
                                             newcard.querySelector('.card-title').innerHTML = showName;
                                         })
                                     }
                                 )
-                                // newcard.querySelector('.card-title').innerHTML = `${user.name}`; // Replace with actual data
-                                newcard.querySelector('.card-length').innerHTML = "I CRY"; // Replace with actual data
+                                
+                                await db.collection('chatrooms').doc(doc.id).collection('message_history').orderBy('time', 'desc').limit(1).get().then(
+                                    message => {
+                                        console.log(message.docs[0].data().message)
+                                        newcard.querySelector('.card-length').innerHTML = message.docs[0].data().message;
+                                    })
+                                
 
                                 newcard.querySelector('.card-href').addEventListener('click', () => {
-                                    add_to_list_from_search(doc.ref.path, false);
+                                    window.location.href = "chatroom.html?chatroomid=" + doc.id;
                                 });
 
                                 chats.appendChild(newcard);

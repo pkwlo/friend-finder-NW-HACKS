@@ -72,20 +72,12 @@
                                 required />
                         </div>
                         <div class="form-group">
-                            <label>Country</label>
-                            <input type="text" id="countryInput" class="form-control" placeholder="Enter your country">
-                        </div>
-                        <div class="form-group">
-                            <label>City</label>
-                            <input type="text" id="cityInput" class="form-control" placeholder="Enter your city">
-                        </div>
-                        <div class="form-group">
                             <label>About</label>
                             <input type="text" id="userAbout" class="form-control" placeholder="Enter your city">
                         </div>
                     </fieldset>
                     <!-- Buttons for editing and saving user info -->
-                    <div class="d-flex justify-content-end mt-5">
+                    <div class="d-flex justify-content-end mt-5" id="edit-save">
                         <!-- event-listener that call the functions after clicking on the buttons. -->
                         <button type="button" class="btn btn-success edit" onclick="editUserInfo()">Edit</button>
                         <span style="width: 10px"></span>
@@ -108,9 +100,9 @@
 
 
             <!-- Link to about page -->
-            <div class="aboutbtn row profile-card">
+            <!-- <div class="aboutbtn row profile-card">
                 <button id="about" class="btn btn-success">About</button>
-            </div>
+            </div> -->
         </div>
     </main>
 

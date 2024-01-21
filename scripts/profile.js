@@ -1,16 +1,52 @@
 // Global variable to store the document reference of the logged-in user
 let currentUser;
 
+$(document).ready(function () {
+})
+
+function getProfileUserInfo() {
+    // Get the user ID from the URL
+    let params = new URL(window.location.href); 
+    profile_user_ID = params.searchParams.get("userID"); 
+    return profile_user_ID;
+}
+getProfileUserInfo();
+displayButtons();
+
 
 //-----------------------------------------------------------
 // Function to message user
 //-----------------------------------------------------------
 
-function messageFriend() {
+function displayButtons() {
     firebase.auth().onAuthStateChanged(user => {
         // Check if user is signed in
         if (user) {
             console.log(user.id)
+            
+            if (profile_user_ID == user.uid) {
+                // only allow user to change profile picture if it is their own profile
+                document.getElementById("message-friend").style.display = "none";
+                console.log('here')
+            } else {
+                document.getElementById("edit-save").setAttribute('style', 'display:none !important')
+                console.log('here')
+            }
+        }
+    });
+}
+
+function sendMessage() {
+    firebase.auth().onAuthStateChanged(user => {
+        // Check if user is signed in
+        if (user) {
+            console.log(user.id)
+            db.collection("chatrooms").add({
+                users: [user.uid, profile_user_ID]
+            }).then(function (docRef) {
+                console.log("Document written with ID: ", docRef.id);
+                window.location.href = "chatroom.html?chatroomid=" + docRef.id;
+            })
         }
     });
 }
@@ -32,20 +68,12 @@ function populateUserInfo() {
             currentUser.get().then(userDoc => {
                 // Extract user data fields
                 const userName = userDoc.data().name;
-                const userCountry = userDoc.data().country;
-                const userCity = userDoc.data().city;
                 const picUrl = userDoc.data().profilePic;
                 const userAbout = userDoc.data().about;
 
                 // Populate form fields if data fields are not empty
                 if (userName != null) {
                     document.getElementById("nameInput").value = userName;
-                }
-                if (userCountry != null) {
-                    document.getElementById("countryInput").value = userCountry;
-                }
-                if (userCity != null) {
-                    document.getElementById("cityInput").value = userCity;
                 }
                 if (userAbout != null) {
                     document.getElementById("userAbout").value = userAbout;
@@ -91,15 +119,8 @@ function saveUserInfo() {
             // Asynchronous call to get URL from Cloud Storage
             storageRef.getDownloadURL().then(url => {
                 // Get form field values
-                const userName = document.getElementById('nameInput').value;
-                const userCountry = document.getElementById('countryInput').value;
-                const userCity = document.getElementById('cityInput').value;
-
                 // Asynchronous call to update form fields in Firestore
                 currentUser.update({
-                    name: userName,
-                    country: userCountry,
-                    city: userCity,
                     profilePic: url
                 }).then(() => {
                     // Disable form fields after saving
@@ -123,9 +144,6 @@ function saveUserInfo() {
     });
 }
 
-// Run the function to fetch and update additional user information
-getOtherInfoFromDB();
-
 // Add click event listener to the sign-out button
 document.getElementById("sign-out").addEventListener("click", () => {
     // Call the logout function when the button is clicked
@@ -136,16 +154,16 @@ document.getElementById("sign-out").addEventListener("click", () => {
 });
 
 // Add click event listener to the about button
-document.getElementById("about").addEventListener("click", () => {
-    // Redirect to "about.html"
-    window.location.href = "about.html";
-});
+// document.getElementById("about").addEventListener("click", () => {
+//     // Redirect to "about.html"
+//     window.location.href = "about.html";
+// });
 
 // Add click event listener to the message button
 document.getElementById("message-friend").addEventListener("click", () => {
     // message friend"
     console.log('message friend')
-    messageFriend();
+    sendMessage();
 });
 
 // Global variable to store the File Object reference for user profile picture
@@ -161,12 +179,9 @@ function chooseFileListener() {
     // Attach listener to input file
     // When this file changes, do something
     fileInput.addEventListener('change', e => {
-        // The change event returns a file "e.target.files[0]"
         ImageFile = e.target.files[0];
         const blob = URL.createObjectURL(ImageFile);
-
-        // Change the DOM img element source to point to this file
-        image.src = blob; // Assign the "src" property of the "img" tag
+        image.src = blob; 
     });
 }
 

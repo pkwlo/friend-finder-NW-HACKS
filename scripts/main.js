@@ -1,13 +1,13 @@
 $(document).ready(function () {
     checkQuestionnaire();
-    
-    
+
 });
 
-var user_tags = [];
-var user_interests = [];
 
 async function checkQuestionnaire() {
+    var user_tags = [];
+    var user_interests = [];
+
     firebase.auth().onAuthStateChanged(async function (user) {
         if (user) {
             await db.collection("questionnaire").where("user_id", "==", user.uid).get().then(
@@ -21,28 +21,33 @@ async function checkQuestionnaire() {
                     })
                 }
             )
-            .then(() => {
-                if (user_tags.length == 0) {
-                    window.location.assign("questionnaire.html");
-                }
-            })
+                .then(() => {
+                    if (user_tags.length == 0) {
+                        window.location.assign("questionnaire.html");
+                    }
+                })
             // console.log(user_tags);
             matchUsers(user_tags, user_interests);
+            populateUserByScore(user.uid);
         }
     })
-    
+
 }
 
 //Loop through all users and compare tags and give each user a score according to how many tags they have in common with the current user
-function matchUsers(user_tags, user_interests) {
-    db.collection("questionnaire").get().then(
+async function matchUsers(user_tags, user_interests) {
+    console.log("matching")
+    var current_user_id = firebase.auth().currentUser.uid;
+    // console.log(current_user_id);
+
+    await db.collection("questionnaire").get().then(
         allUsers => {
             allUsers.forEach(user => {
                 var score = 0;
                 var next_user_tags = [];
                 var next_user_interests = [];
                 var other_user_id = user.data().user_id;
-                var current_user_id = firebase.auth().currentUser.uid;
+
 
                 if (user.data().user_id != firebase.auth().currentUser.uid) {
                     next_user_interests.push(user.data().interests);
@@ -56,53 +61,90 @@ function matchUsers(user_tags, user_interests) {
                             score++;
                         }
                     }
-    
+
                     for (var i = 0; i < user_interests[0].length; i++) {
                         if (next_user_interests[0].includes(user_interests[0][i])) {
                             score++;
                         }
                     }
-                    console.log(score);
+                    // console.log(score);
 
-                    //add the score to the user's document in the database
-                    db.collection("users").doc(current_user_id).collection("other_users").add(
-                        {   name: other_user_id,
-                            score: score
+                    //update the score in the user's document in the database
+                    const otherUserDocRef = db.collection("users").doc(current_user_id)
+                        .collection("other_users").doc(other_user_id);
+
+                    const newData = {
+                        name: other_user_id,
+                        score: score
+                    };
+
+                    // Use set with merge: true to update or add the document
+                    otherUserDocRef.set(newData, { merge: true })
+                        .then(() => {
+                            console.log("Document successfully updated or added!");
                         })
+                        .catch((error) => {
+                            console.error("Error updating or adding document: ", error);
+                        });
                 }
             })
         })
-    populateUserByScore(current_user_id);
+
 }
 
-//Sort users except yourself by score
-function populateUserByScore(current_user_id) {
-    let cardTemplate = document.getElementById("matchTemplate");
-    let friendsList = [];
+// Sort users except yourself by score
+async function populateUserByScore(current_user_id) {
+    console.log("populating");
+    const cardTemplate = document.getElementById("matchTemplate");
+    const friendsList = [];
 
-    db.collection("users").doc(current_user_id).collection("other_users").get().then(
-        allUsers => {
-            allUsers.forEach(user => {
-                let user_id = user.data().name;
-                let eachuser = user_if in db.collection("questionnaire");
-                friendsList.push(user.data());
-            })
-        }
-    ).then(() => {
-        friendsList.sort(function(a, b) {
-            return b.score - a.score;
+    // Fetch all users except yourself
+    await db.collection("users").doc(current_user_id).collection("other_users").get()
+        .then(querySnapshot => {
+            querySnapshot.forEach(userDoc => {
+                const userData = userDoc.data();
+                friendsList.push(userData);
+            });
         })
-    }).then(() => {
-        friendsList.limit(10).forEach(user => {
-            let cardClone = cardTemplate.content.cloneNode(true);
-            cardClone.querySelector(".card-title").textContent = eachuser.name;
-            cardClone.querySelector(".card-location").textContent = eachuser.location;
-            cardClone.querySelector(".card-hangout").textContent = user.score;
-            cardClone.querySelector(".card-chat").textContent = user.score;
-            cardClone.querySelector(".card-interests").textContent = user.score;
-            cardClone.querySelector(".description").textContent = user.score;
+        .catch(error => {
+            console.error("Error getting user documents:", error);
+        });
+
+
+    console.log(friendsList)
+
+    // Sort the friendsList by score in descending order
+    friendsList.sort((a, b) => b.score - a.score);
+
+    // Display the top 10 users in the UI
+    const topUsers = friendsList.slice(0, 10);
+    topUsers.forEach(user => {
+        const cardClone = cardTemplate.content.cloneNode(true);
+        db.collection("users").doc(user.name).get()
+            .then(userDoc => {
+                if (userDoc.exists) {
+                    const questionnaireCollection = db.collection("questionnaire");
+                    const userQuery = questionnaireCollection.where("user_id", "==", user.name);
+                    userQuery.get()
+                        .then(querySnapshot => {
+                            if (!querySnapshot.empty) {
+                                const userDocu = querySnapshot.docs[0];
+                                const userData = userDocu.data();
+                                console.log(userData);
+                                cardClone.querySelector(".card-title").textContent = userDoc.data().name;
+                                cardClone.querySelector(".card-location").textContent = userData.location;
+                                cardClone.querySelector(".card-hangout").textContent = userData.hangout;
+                                cardClone.querySelector(".card-chat").textContent = userData.chat;
+                                cardClone.querySelector(".card-interests").textContent = userData.interests;
+                                cardClone.querySelector(".description").textContent = userData.description;
+                                cardClone.querySelector(".card-outdoor").textContent = userData.outdoor;
             
-        })
+                                document.getElementById("matches-go-here").appendChild(cardClone);
+                            } else {
+                                console.log("No matching document found");
+                            }
+                        })
+                }
+            });
     })
-
 }

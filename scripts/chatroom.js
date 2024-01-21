@@ -22,14 +22,21 @@ async function loadMessages() {
             chats.docChanges().forEach(chat => {
                 if (chat.type == "added") {
                     var message_card = document.createElement("div");
+                    message_card.classList.add("message_card");
+
                     var message = document.createElement("div");
+                    message.classList.add("message");
+
                     message.innerHTML = chat.doc.data().message;
                     var time = document.createElement("div");
+                    time.classList.add("time");
 
                     // fix this
                     time.innerHTML = chat.doc.data().time.toDate();
 
                     var displayname = document.createElement("div");
+                    displayname.classList.add("name");
+
                     displayname.innerHTML = chat.doc.data().username;
                     message_card.appendChild(displayname);
                     message_card.appendChild(message);

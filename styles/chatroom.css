@@ -1,0 +1,30 @@
+#chats-go-here .message_card{
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: 0 0 5px #ccc;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: 100%;
+    max-width: 500px;
+}
+
+#chats-go-here .message_card .name{
+    font-weight: bold;
+    font-size: 1.2em;
+    margin-bottom: 5px;
+}
+
+#chats-go-here .message_card .message{
+    font-size: 1.1em;
+    margin-bottom: 5px;
+}
+
+#chats-go-here .message_card .time{
+    font-size: 0.8em;
+    color: #999;
+}

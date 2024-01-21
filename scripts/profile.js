@@ -1,6 +1,22 @@
 // Global variable to store the document reference of the logged-in user
 let currentUser;
 
+
+//-----------------------------------------------------------
+// Function to message user
+//-----------------------------------------------------------
+
+function messageFriend() {
+    firebase.auth().onAuthStateChanged(user => {
+        // Check if user is signed in
+        if (user) {
+            console.log(user.id)
+        }
+    });
+}
+
+
+
 //-----------------------------------------------------------
 // Function to populate user information on the profile page
 //-----------------------------------------------------------
@@ -123,6 +139,13 @@ document.getElementById("sign-out").addEventListener("click", () => {
 document.getElementById("about").addEventListener("click", () => {
     // Redirect to "about.html"
     window.location.href = "about.html";
+});
+
+// Add click event listener to the message button
+document.getElementById("message-friend").addEventListener("click", () => {
+    // message friend"
+    console.log('message friend')
+    messageFriend();
 });
 
 // Global variable to store the File Object reference for user profile picture

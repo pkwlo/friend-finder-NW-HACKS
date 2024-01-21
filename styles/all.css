@@ -90,3 +90,8 @@ footer {
     max-width: 100%;
     height: auto;
 }
+
+/* profile */
+.container-profile {
+    padding: 5%;
+}

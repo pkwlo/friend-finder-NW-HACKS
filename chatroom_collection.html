@@ -38,6 +38,18 @@
     <!-------------------------------------------->
     <link rel="stylesheet" href="./styles/all.css">
 
+    <style>
+        .container_products {
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .card-body {
+            padding: 5%;
+        }
+    </style>
+
 </head>
 
 <body>
@@ -65,17 +77,13 @@
 
         <template id="chat_card_template">
             <div class="card">
-                <img class="card-image card-img-top" src=" ..." alt="..." />
                 <div class="card-body">
                     <div class="text-body">
                         <h5 class="card-title">title</h5>
                         <p class="card-length">placeholder</p>
                         <br />
-                        <p class="card-text">
-                            Placeholder text
-                        </p>
                     </div>
-                    <a class="add_btn btn btn-success card-href">+</a>
+                    <a class="add_btn btn btn-success card-href">Chat</a>
                 </div>
             </div>
         </template>

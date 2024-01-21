@@ -140,6 +140,9 @@ async function populateUserByScore(current_user_id) {
                                 cardClone.querySelector(".description").textContent = userData.description;
                                 cardClone.querySelector(".card-outdoor").textContent = userData.outdoor;
             
+                                cardClone.querySelector('button').id = 'add-' + user.name;
+                                cardClone.querySelector('button').onclick = () => addFriend(current_user_id, user.name);
+
                                 document.getElementById("matches-go-here").appendChild(cardClone);
                             } else {
                                 console.log("No matching document found");
@@ -151,6 +154,6 @@ async function populateUserByScore(current_user_id) {
 }
 
 //Send a friend request and set friend status to pending in firebase
-function addFriend() {
+function addFriend(current_user_id, friendReq) {
     
 }

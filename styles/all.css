@@ -3,6 +3,10 @@
     margin: 0px;
 }
 
+.padding {
+    padding: 20px;
+}
+
 .navbar-brand img {
     width: 20%;
 }

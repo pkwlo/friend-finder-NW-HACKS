@@ -1,0 +1,9 @@
+.container {
+    width: 100%;
+}
+
+.title {
+    display: flex;
+    justify-content: space-between;
+}
+

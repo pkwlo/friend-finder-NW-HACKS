@@ -132,6 +132,7 @@ async function populateUserByScore(current_user_id) {
                                 const userData = userDocu.data();
                                 console.log(userData);
                                 cardClone.querySelector(".card-title").textContent = userDoc.data().name;
+                                cardClone.querySelector(".images").textContent = userDoc.data().photo;
                                 cardClone.querySelector(".card-location").textContent = userData.location;
                                 cardClone.querySelector(".card-hangout").textContent = userData.hangout;
                                 cardClone.querySelector(".card-chat").textContent = userData.chat;
@@ -147,4 +148,9 @@ async function populateUserByScore(current_user_id) {
                 }
             });
     })
+}
+
+//Send a friend request and set friend status to pending in firebase
+function addFriend() {
+    
 }

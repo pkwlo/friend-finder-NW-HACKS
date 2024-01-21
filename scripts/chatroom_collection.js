@@ -36,8 +36,17 @@ function displayCardsDynamically(collection) {
                                 //     showName = doc.data().name;
 
                                 // })
-                                newcard.querySelector('.card-title').innerHTML = user;
-                                // newcard.querySelector('.card-title').innerHTML = `${db.collection("users").doc(user).data().name}`; // Replace with actual data
+                                // newcard.querySelector('.card-title').innerHTML = user;
+                                db.collection('users').where(firebase.firestore.FieldPath.documentId(), '==', user).get().then(
+                                    results => {
+                                        results.forEach(doc => {
+                                            console.log(doc.data().name)
+                                            showName = doc.data().name;
+                                            newcard.querySelector('.card-title').innerHTML = showName;
+                                        })
+                                    }
+                                )
+                                // newcard.querySelector('.card-title').innerHTML = `${user.name}`; // Replace with actual data
                                 newcard.querySelector('.card-length').innerHTML = "I CRY"; // Replace with actual data
 
                                 newcard.querySelector('.card-href').addEventListener('click', () => {

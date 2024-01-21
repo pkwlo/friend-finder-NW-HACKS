@@ -156,4 +156,10 @@ async function populateUserByScore(current_user_id) {
 //Send a friend request and set friend status to pending in firebase
 function addFriend(current_user_id, friendReq) {
     console.log("adding friend");   
+    db.collection("chatrooms").add({
+        users: [current_user_id, friendReq]
+    }).then(function (docRef) {
+        console.log("Document written with ID: ", docRef.id);
+        window.location.href = "chatroom.html?chatroomid=" + docRef.id;
+    })
 }

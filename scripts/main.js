@@ -132,13 +132,24 @@ async function populateUserByScore(current_user_id) {
                                 const userData = userDocu.data();
                                 console.log(userData);
                                 cardClone.querySelector(".card-title").textContent = userDoc.data().name;
-                                cardClone.querySelector(".images").textContent = userDoc.data().photo;
+                                if (userDoc.data().photo == null) {
+                                    cardClone.querySelector(".images").src = "images/default_profile.png";
+                                } else {
+                                    cardClone.querySelector(".images").textContent = userDoc.data().photo;
+                                }
+                                
                                 cardClone.querySelector(".card-location").textContent = userData.location;
-                                cardClone.querySelector(".card-hangout").textContent = userData.hangout;
-                                cardClone.querySelector(".card-chat").textContent = userData.chat;
+
+                                if (userData.hangout == true) { cardClone.querySelector(".card-hangout").textContent = `Hanging out`; }
+                                if (userData.chat == true) { cardClone.querySelector(".card-chat").textContent = `Chatting`; }
+                                if (userData.outdoor == true) { cardClone.querySelector(".card-outdoor").textContent = `Outdoor Activities`; }
                                 cardClone.querySelector(".card-interests").textContent = userData.interests;
-                                cardClone.querySelector(".description").textContent = userData.description;
-                                cardClone.querySelector(".card-outdoor").textContent = userData.outdoor;
+
+                                if (userData.description == null) {
+                                    cardClone.querySelector(".description").textContent = "No description entered yet.";
+                                } else {
+                                    cardClone.querySelector(".description").textContent = userData.description;
+                                }
             
                                 cardClone.querySelector('button').id = 'add-' + user.name;
                                 cardClone.querySelector('button').onclick = () => addFriend(current_user_id, user.name);

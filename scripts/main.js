@@ -1,5 +1,6 @@
 $(document).ready(function () {
     checkQuestionnaire();
+    populateUserByScore();
     
 });
 
@@ -71,4 +72,8 @@ function matchUsers(user_tags, user_interests) {
                 }
             })
         })
+}
+
+function populateUserByScore() {
+    
 }

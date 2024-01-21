@@ -17,11 +17,28 @@ function displayCardsDynamically(collection) {
                         doc.data().users.forEach(user => {
                             if (nameID != user) {
 
-
+                                let showName;
                                 let newcard = cardTemplate.content.cloneNode(true);
+                                console.log('test     ' + user)
 
-                                newcard.querySelector('.card-title').innerHTML = user; // Replace with actual data
-                                newcard.querySelector('.card-length').innerHTML = 'productPrice' + " CAD"; // Replace with actual data
+                                // db.collection('users').doc(user).get().then(doc => {
+                                //     if (doc.exists) {
+                                //         let userName = doc.data().name; // Access the name field
+                                //         console.log(userName); // This will log "bob" to the console
+                                //     } else {
+                                //         console.log("Document does not exist");
+                                //     }
+                                // }).catch(error => {
+                                //     console.error("Error getting document:", error);
+                                // });
+                                // db.collection('users').doc(user).get().then(doc => {
+                                //     console.log("User name:", doc.data().name);
+                                //     showName = doc.data().name;
+
+                                // })
+                                newcard.querySelector('.card-title').innerHTML = user;
+                                // newcard.querySelector('.card-title').innerHTML = `${db.collection("users").doc(user).data().name}`; // Replace with actual data
+                                newcard.querySelector('.card-length').innerHTML = "I CRY"; // Replace with actual data
 
                                 newcard.querySelector('.card-href').addEventListener('click', () => {
                                     add_to_list_from_search(doc.ref.path, false);

@@ -55,6 +55,7 @@ function sendMessage() {
         time: firebase.firestore.Timestamp.fromDate(new Date()),
         username: username
     })
+    document.getElementById("chat-input").value = '';
 }
 
 var observer = new MutationObserver(function(mutations) {

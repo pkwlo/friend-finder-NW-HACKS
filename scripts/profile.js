@@ -7,7 +7,7 @@ $(document).ready(function () {
 function getProfileUserInfo() {
     // Get the user ID from the URL
     let params = new URL(window.location.href); 
-    profile_user_ID = params.searchParams.get("userID"); 
+    profile_user_ID = params.searchParams.get("userid"); 
     return profile_user_ID;
 }
 getProfileUserInfo();
@@ -22,15 +22,11 @@ function displayButtons() {
     firebase.auth().onAuthStateChanged(user => {
         // Check if user is signed in
         if (user) {
-            console.log(user.id)
-            
             if (profile_user_ID == user.uid) {
                 // only allow user to change profile picture if it is their own profile
                 document.getElementById("message-friend").style.display = "none";
-                console.log('here')
             } else {
                 document.getElementById("edit-save").setAttribute('style', 'display:none !important')
-                console.log('here')
             }
         }
     });

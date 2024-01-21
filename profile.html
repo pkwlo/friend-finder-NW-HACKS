@@ -37,6 +37,7 @@
     <!-- Other libraries and styles of your own -->
     <!-------------------------------------------->
     <link rel="stylesheet" href="./styles/all.css">
+    <link rel="stylesheet" href="./styles/profile.css">
 
 </head>
 
@@ -55,16 +56,17 @@
         <div class="container-fluid">
             <!-- Basic user info -->
             <div class="account profile-card">
-                <h2>Account</h2>
+                <h2>Account Settings</h2>
                 <!-- Users can modify their info here -->
                 <form>
+                    <!-- Profile picture -->
+                    <div class="profile-container text-center">
+                        <img id="mypic-goes-here" src="./images/default_profile_pic.png" width=150 height=150 />
+                        <input type="file" id="mypic-input" accept="image/*" />
+                        <br><button onclick="uploadProfilePhoto()">Upload</button>
+                    </div>
                     <!-- Personal information fields -->
                     <fieldset class="mb-3" id="personalInfoFields" disabled>
-                        <!-- Profile picture -->
-                        <div class="profile-container text-center">
-                            <img id="mypic-goes-here" src="./images/default_profile_pic.png" width=150 height=150 />
-                            <input type="file" id="mypic-input" accept="image/*" />
-                        </div>
                         <!-- Form input fields -->
                         <div class="form-group">
                             <label>Name</label>
@@ -76,26 +78,25 @@
                             <input type="text" id="userAbout" class="form-control" placeholder="Enter your city">
                         </div>
                     </fieldset>
-                    <!-- Buttons for editing and saving user info -->
-                    <div class="d-flex justify-content-end mt-5" id="edit-save">
-                        <!-- event-listener that call the functions after clicking on the buttons. -->
-                        <button type="button" class="btn btn-success edit" onclick="editUserInfo()">Edit</button>
-                        <span style="width: 10px"></span>
-                        <button type="button" class="btn btn-secondary save" onclick="saveUserInfo()">Save</button>
-                    </div>
                 </form>
+            </div>
+            <!-- Buttons for editing and saving user info -->
+            <div>
+                <!-- event-listener that call the functions after clicking on the buttons. -->
+                <button class="edit" onclick="editUserInfo()">Edit</button>
+                <button class="save" onclick="saveUserInfo()">Save</button>
             </div>
 
             <!-- Message friend Section -->
-            <div class="add-friend row profile-card">
+            <div class="add-friend profile-card">
                 <!-- Message friend button -->
-                <button id="message-friend" class="btn btn-success">Send Message</button>
+                <button id="message-friend" >Send Message</button>
             </div>
 
             <!-- Sign-out Section -->
-            <div class="sign-out row profile-card">
+            <div class="sign-out profile-card">
                 <!-- Sign-out button -->
-                <button id="sign-out" class="btn btn-success">Sign Out</button>
+                <button id="sign-out" >Sign Out</button>
             </div>
 
 

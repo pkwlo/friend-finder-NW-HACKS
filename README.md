@@ -7,7 +7,7 @@ Friend Finder is an innovative web application designed to help individuals disc
 
 ## 2. Names of Contributors
 List team members and/or short bio's here... 
-* Hi, my name is Patricia Lo! I am excited to be here!
+* Hi, my name is Patricia Lo! I am excited for my first hackathon! I can't wait to see what our team creates with the 24 hour time limit and how much we can learn from this experience.
 * My name is Alice Huang, I am excited too!!!.
 * My name is Yang Guo, and I'm excited to work on this project and learn about designing and creating a web app. 
 * My name is Cai (Steven) Yan. I'm excited to work on this to gain experience with working with a team and web design.
